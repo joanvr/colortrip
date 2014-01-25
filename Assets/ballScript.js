@@ -1,8 +1,10 @@
 ﻿#pragma strict
 
+@script ExecuteInEditMode
+
 var shootingForce : Vector2 = new Vector2();
 var showGUITarget = false;
-var flying = true;
+var flying = false;
 
 var texTarget : Texture;
 
@@ -15,6 +17,8 @@ var shootPower = 30.0;
 
 private var beingShooted = false;
 
+var activate : boolean;
+
 function Start () {
 
 	shootingForce.x = 30.0;
@@ -23,8 +27,9 @@ function Start () {
 
 function Update () {
 
-	this.selectSprite();
+	updateSprite();
 	
+	updatePhysics();
 	/*
 	if(Input.GetKeyDown("space") && flying == false)
 	{
@@ -41,15 +46,29 @@ function OnGUI()
     
     if(showGUITarget)
     {
-		GUI.DrawTexture(new Rect(slingshotDragMousePos.x, Screen.height - slingshotDragMousePos.y, 10.0,10.0),texTarget);    	
+//		GUI.DrawTexture(new Rect(slingshotDragMousePos.x, Screen.height - slingshotDragMousePos.y, 10.0,10.0),texTarget);    	
     }
 	
 }
 
 function OnCollisionEnter2D(collision : Collision2D) {
-	this.rigidbody2D.gravityScale = 0.0;	
-	this.rigidbody2D.angularVelocity = 0.0;
-	this.rigidbody2D.velocity = Vector3.zero;
+	if (collision.gameObject.tag == "Ball") {
+		if (this.flying) { 
+			var t2 : boolean[] = collision.gameObject.GetComponent(ballScript).getActiveColors();
+			
+			for (var i = 0; i < t2.length; i++) {
+				type[i] = type[i] || t2[i];
+				if (type[i])
+					GameObject.Find("ballSelector").GetComponent(ballSelector).click(i);
+			}
+			Destroy(collision.gameObject);
+		}
+	}
+	else {
+		this.rigidbody2D.gravityScale = 0.0;	
+		this.rigidbody2D.angularVelocity = 0.0;
+		this.rigidbody2D.velocity = Vector3.zero;
+	}
 	flying = false;
 }
 
@@ -66,7 +85,11 @@ function OnCollisionExit2D(collision : Collision2D) {
 }
 
 function OnMouseDown () {
+<<<<<<< HEAD
 
+=======
+	if (!activate) return;
+>>>>>>> f8de8be3d2f84561a648236ed91c220e1be06dc5
 	slingshotBase = this.transform.position;
 	showGUITarget = true;
 
@@ -81,66 +104,78 @@ function OnMouseDown () {
 }
 
 function OnMouseDrag () {
+    if (!activate) return;
     slingshotDragMousePos.x = Input.mousePosition.x;
     slingshotDragMousePos.y = Input.mousePosition.y;
 }
 
 
 function OnMouseUp(){
+	if (!activate) return;
+	var i : int;
 	var hitPoint : Vector3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			
+	
 	shootingForce = (this.transform.localPosition - hitPoint) * shootPower;		
-	this.rigidbody2D.AddForce(shootingForce);	
+	this.rigidbody2D.AddForce(shootingForce);
+
+	var bs = GameObject.Find("ballSelector").GetComponent(ballSelector);
+	
+	var nb = new boolean[3];
+	
+	for (i = 0; i < nb.length; i++)
+		if (!bs.ballsSelected[i] && type[i])
+			nb[i] = true;
+	
+	if (nb[0] || nb[1] || nb[2]) {
+		var nbo = Instantiate(this, transform.localPosition, transform.localRotation);
+		nbo.GetComponent(ballScript).type = nb;
+		
+		for (i = 0; i < nb.length; i++)
+			if (nb[i]) type[i] = false; 
+	}
+	
 }
 
-var type : colorType;
+var type : boolean[];
 
-var cmy_spr : Sprite;
-var cymag_spr : Sprite;
-var cyyel_spr : Sprite;
-var magyel_spr : Sprite;
-var cy_spr : Sprite;
-var mag_spr : Sprite;
-var yel_spr : Sprite;
+var spr_012 : Sprite;
+var spr_01 : Sprite;
+var spr_12 : Sprite;
+var spr_02 : Sprite;
+var spr_0 : Sprite;
+var spr_1 : Sprite;
+var spr_2 : Sprite;
 
 
-function selectSprite () {
-
+function updateSprite () {
 	var SR = GetComponent(SpriteRenderer);
 
-	if (type == colorType.cmy) SR.sprite = cmy_spr;
-	if (type == colorType.cy) SR.sprite = cyyel_spr;
-	if (type == colorType.cm) SR.sprite = cymag_spr;
-	if (type == colorType.my) SR.sprite = magyel_spr;
-	if (type == colorType.c) SR.sprite = cy_spr;
-	if (type == colorType.m) SR.sprite = mag_spr;
-	if (type == colorType.y) SR.sprite = yel_spr;
-
+	if ( type[0] &&  type[1] &&  type[2])
+		SR.sprite = spr_012;
+	if ( type[0] &&  type[1] && !type[2])
+		SR.sprite = spr_01;
+	if ( type[0] && !type[1] &&  type[2])
+		SR.sprite = spr_02;
+	if (!type[0] &&  type[1] &&  type[2])
+		SR.sprite = spr_12;
+	if ( type[0] && !type[1] && !type[2])
+		SR.sprite = spr_0;
+	if (!type[0] &&  type[1] && !type[2])
+		SR.sprite = spr_1;
+	if (!type[0] && !type[1] &&  type[2])
+		SR.sprite = spr_2;
 }
 
 
 public function getActiveColors() {
-	
-	var cols = new Array(3);
-	
-	cols[0] = 
-		type == colorType.cmy ||
-		type == colorType.cy ||
-		type == colorType.cm ||
-		type == colorType.c;
-	
-	cols[1] = 
-		type == colorType.cmy ||
-		type == colorType.my ||
-		type == colorType.cm ||
-		type == colorType.m;
-		
-	cols[2] = 
-		type == colorType.cmy ||
-		type == colorType.cy ||
-		type == colorType.my ||
-		type == colorType.y;
-		
-	return cols;
-	
+	return type;
+}
+
+function updatePhysics() {
+	for (var i = 0; i < 3; i++) {
+		var origin = gameObject.layer;
+		var dest = i+8;
+		var col = !type[i];
+		Physics2D.IgnoreLayerCollision(dest, origin, col);
+	}
 }
