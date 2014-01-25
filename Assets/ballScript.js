@@ -134,7 +134,7 @@ function selectSprite () {
 }
 
 
-function getActiveColors() {
+public function getActiveColors() {
 	
 	var cols = new Array(3);
 	
