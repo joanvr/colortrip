@@ -1,4 +1,4 @@
-#pragma strict
+﻿#pragma strict
 
 var shootingForce : Vector2 = new Vector2();
 var showGUITarget = false;
@@ -20,6 +20,9 @@ function Start () {
 }
 
 function Update () {
+
+	this.selectSprite();
+
 	if(Input.GetKeyDown("space") && flying == false)
 	{
 		this.rigidbody2D.gravityScale = 0.0;			
@@ -90,4 +93,42 @@ function OnMouseUp(){
 	shootingForce = (slingshotBase - slingshotRelease) * shootFactor;
 	this.rigidbody2D.gravityScale = 1.0;			
 	this.rigidbody2D.AddForce(shootingForce);	
+}
+
+var type : colorType;
+
+var cmy_spr : Sprite;
+var cymag_spr : Sprite;
+var cyyel_spr : Sprite;
+var magyel_spr : Sprite;
+var cy_spr : Sprite;
+var mag_spr : Sprite;
+var yel_spr : Sprite;
+
+
+function selectSprite () {
+
+	var SR = GetComponent(SpriteRenderer);
+
+	if (type == colorType.cmy) 
+		SR.sprite = cmy_spr;
+		
+	if (type == colorType.cy) 
+		SR.sprite = cyyel_spr;
+	
+	if (type == colorType.cm) 
+		SR.sprite = cymag_spr;
+		
+	if (type == colorType.my) 
+		SR.sprite = magyel_spr;
+		
+	if (type == colorType.c) 
+		SR.sprite = cy_spr;
+		
+	if (type == colorType.m) 
+		SR.sprite = mag_spr;
+	
+	if (type == colorType.y) 
+		SR.sprite = yel_spr;
+
 }
