@@ -4,7 +4,7 @@
 
 var shootingForce : Vector2 = new Vector2();
 var showGUITarget = false;
-var flying = true;
+var flying = false;
 
 var texTarget : Texture;
 
@@ -16,6 +16,8 @@ private var slingshotDragMousePos : Vector2 = Vector2.zero;
 var shootPower = 30.0;
 
 private var beingShooted = false;
+
+var activate : boolean;
 
 function Start () {
 
@@ -56,6 +58,8 @@ function OnCollisionEnter2D(collision : Collision2D) {
 			
 			for (var i = 0; i < t2.length; i++) {
 				type[i] = type[i] || t2[i];
+				if (type[i])
+					GameObject.Find("ballSelector").GetComponent(ballSelector).click(i);
 			}
 			Destroy(collision.gameObject);
 		}
@@ -64,8 +68,8 @@ function OnCollisionEnter2D(collision : Collision2D) {
 		this.rigidbody2D.gravityScale = 0.0;	
 		this.rigidbody2D.angularVelocity = 0.0;
 		this.rigidbody2D.velocity = Vector3.zero;
-		flying = false;
 	}
+	flying = false;
 }
 
 function OnCollision2D(collision : Collision2D) {
@@ -81,6 +85,7 @@ function OnCollisionExit2D(collision : Collision2D) {
 }
 
 function OnMouseDown () {
+	if (!activate) return;
 	slingshotBase = this.transform.position;
 	showGUITarget = true;
 
@@ -95,16 +100,36 @@ function OnMouseDown () {
 }
 
 function OnMouseDrag () {
+    if (!activate) return;
     slingshotDragMousePos.x = Input.mousePosition.x;
     slingshotDragMousePos.y = Input.mousePosition.y;
 }
 
 
 function OnMouseUp(){
+	if (!activate) return;
+	var i : int;
 	var hitPoint : Vector3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			
+	
 	shootingForce = (this.transform.localPosition - hitPoint) * shootPower;		
-	this.rigidbody2D.AddForce(shootingForce);	
+	this.rigidbody2D.AddForce(shootingForce);
+
+	var bs = GameObject.Find("ballSelector").GetComponent(ballSelector);
+	
+	var nb = new boolean[3];
+	
+	for (i = 0; i < nb.length; i++)
+		if (!bs.ballsSelected[i] && type[i])
+			nb[i] = true;
+	
+	if (nb[0] || nb[1] || nb[2]) {
+		var nbo = Instantiate(this, transform.localPosition, transform.localRotation);
+		nbo.GetComponent(ballScript).type = nb;
+		
+		for (i = 0; i < nb.length; i++)
+			if (nb[i]) type[i] = false; 
+	}
+	
 }
 
 var type : boolean[];

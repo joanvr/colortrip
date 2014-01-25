@@ -39,7 +39,7 @@ function EspaunearFondo() { // :P
 	var fondos = new Array();
 	//fondos.Add(sprFondo1,sprFondo2);
 
-		var instance : Transform = Instantiate(tfmFondo1);
+//		var instance : Transform = Instantiate(tfmFondo1);
 
 	//var instance : Transform = Instantiate(tfmFondo1,Vector2.zero,Quaternion.identity);
 	var instance : Transform = Instantiate(tfmFondo1);

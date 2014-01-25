@@ -51,7 +51,7 @@ function Update() {
 
 }
 
-function click(ball : int) {
+public function click(ball : int) {
 	var i : int;
 	var j : int;
 	if (ballsSelected[ball]) {
@@ -65,15 +65,15 @@ function click(ball : int) {
 	}
 	else {
 		for (i = 0; i < ballsObjects.length; i++) {
-			var ba = ballsObjects[i];
-			var cs = ba.GetComponent(ballScript).getActiveColors();
+			var ba = ballsObjects[i].GetComponent(ballScript);
+			var cs = ba.getActiveColors();
 			if (cs[ball]) {
+				ba.activate = true;
 				for (j = 0; j < cs.length; j++) {
 					ballsSelected[j] = cs[j];
 				}
-				break;
-			
 			}
+			else ba.activate = false;
 			
 		}
 	}
