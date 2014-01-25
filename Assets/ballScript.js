@@ -22,7 +22,7 @@ function Start () {
 function Update () {
 
 	this.selectSprite();
-
+	
 	if(Input.GetKeyDown("space") && flying == false)
 	{
 		this.rigidbody2D.gravityScale = 0.0;			

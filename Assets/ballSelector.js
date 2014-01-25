@@ -35,27 +35,29 @@ function Update() {
 }
 
 function click(ball : int) {
+	var i : int;
+	var j : int;
 	if (ballsSelected[ball]) {
-		ballsSelected[ball] = false;
+		var n = 0;
+		for (i = 0; i < ballsSelected.length; i++)
+			if (ballsSelected[i])
+				n++;
+			
+		if (n > 1) 
+			ballsSelected[ball] = false;
 	}
 	else {
-		for (var i in ballsObjects.length) {
+		for (i = 0; i < ballsObjects.length; i++) {
 			var ba = ballsObjects[i];
-			var cs = ba.getActiveColors();
-			var b = false;
-			for (var j in cs) {
-				var c = cs[j];
-				if (c == ball) {
-					b = true;
-					break;
-				}
-			}
-			if (b) {
-				for (var j in cs) {
-					ballssSelected[cs[j]] = true;
+			var cs = ba.GetComponent(ballScript).getActiveColors();
+			if (cs[ball]) {
+				for (j = 0; j < cs.length; j++) {
+					ballsSelected[j] = cs[j];
 				}
 				break;
+			
 			}
+			
 		}
 	}
 }
