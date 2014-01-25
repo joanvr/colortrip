@@ -2,13 +2,10 @@
 
 var background : GUITexture;
 
-var ball1: GUITexture;
-var ball2: GUITexture;
-var ball3: GUITexture;
+var ballsTexture: GUITexture[];
+var ballsSelected : boolean[];
 
-var ball1b : boolean;
-var ball2b : boolean;
-var ball3b : boolean;
+var ballsObjects : GameObject[];
 
 function Update() {
 	if (Input.GetMouseButtonDown(0)) {
@@ -20,26 +17,45 @@ function Update() {
 			var angle : float = Mathf.Atan2(v.x, v.y);
 			
 			if (angle < 0f && angle > -2.0f*Mathf.PI/3.0f) {
-				ball1b = !ball1b;
+				click(0);
 			}
 			else if (angle > 0f && angle < 2.0f*Mathf.PI/3.0f) {
-				ball2b = !ball2b;
+				click(1);
 			}
 			else {
-				ball3b = !ball3b;
+				click(2);
 			}
 		}
 	}
 	
-	if (ball1b) ball1.color.a = 1.0f;
-	else		ball1.color.a = 0.0f;
-	if (ball2b) ball2.color.a = 1.0f;
-	else		ball2.color.a = 0.0f;
-	if (ball3b) ball3.color.a = 1.0f;
-	else		ball3.color.a = 0.0f;
+	for (var i = 0; i < 3; i++) {
+		if (ballsSelected[i]) 	ballsTexture[i].color.a = 1.0f;
+		else					ballsTexture[i].color.a = 0.0f;
+	}
 }
 
-function click(ball) {
-
-
+function click(ball : int) {
+	if (ballsSelected[ball]) {
+		ballsSelected[ball] = false;
+	}
+	else {
+		for (var i in ballsObjects.length) {
+			var ba = ballsObjects[i];
+			var cs = ba.getActiveColors();
+			var b = false;
+			for (var j in cs) {
+				var c = cs[j];
+				if (c == ball) {
+					b = true;
+					break;
+				}
+			}
+			if (b) {
+				for (var j in cs) {
+					ballssSelected[cs[j]] = true;
+				}
+				break;
+			}
+		}
+	}
 }
