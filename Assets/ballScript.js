@@ -132,3 +132,30 @@ function selectSprite () {
 		SR.sprite = yel_spr;
 
 }
+
+
+function getActiveColors() {
+	
+	var cols = new Array(3);
+	
+	cols[0] = 
+		type == colorType.cmy ||
+		type == colorType.cy ||
+		type == colorType.cm ||
+		type == colorType.c;
+	
+	cols[1] = 
+		type == colorType.cmy ||
+		type == colorType.my ||
+		type == colorType.cm ||
+		type == colorType.m;
+		
+	cols[2] = 
+		type == colorType.cmy ||
+		type == colorType.cy ||
+		type == colorType.my ||
+		type == colorType.y;
+		
+	return cols;
+	
+}
