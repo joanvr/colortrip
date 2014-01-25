@@ -1,10 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Slingshot.js">
     <Files>
       <File FileName="Assets\Scripts\Slingshot.js" Line="12" Column="8" />
       <File FileName="Assets\Scripts\Globals.js" Line="1" Column="1" />
       <File FileName="Assets\ballScript.js" Line="9" Column="21" />
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\ballSelector.js">
+    <Files>
+      <File FileName="Assets\ballSelector.js" Line="39" Column="29" />
+>>>>>>> e0dd8e5670053004266bbe498188a92b2ef6133d
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
