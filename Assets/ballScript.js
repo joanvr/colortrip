@@ -66,6 +66,7 @@ function OnCollisionExit2D(collision : Collision2D) {
 }
 
 function OnMouseDown () {
+
 	slingshotBase = this.transform.position;
 	showGUITarget = true;
 
