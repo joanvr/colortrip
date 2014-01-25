@@ -1,15 +1,15 @@
-﻿#pragma strict
+#pragma strict
 
-var shootingForce:Vector2 = new Vector2();
+var shootingForce : Vector2 = new Vector2();
 var showGUITarget = false;
 var flying = true; //porque empieza en el aire
 
 var texTarget : Texture;
 
-var slingshotBase : Vector2 = new Vector2();
-var slingshotRelease : Vector2 = new Vector2();
-var slingshotBaseMousePos : Vector2 = Vector2.zero;
-var slingshotDragMousePos : Vector2 = Vector2.zero;
+private var slingshotBase : Vector2 = new Vector2();
+private var slingshotRelease : Vector2 = new Vector2();
+private var slingshotBaseMousePos : Vector2 = Vector2.zero;
+private var slingshotDragMousePos : Vector2 = Vector2.zero;
 
 var shootFactor = 30.0;
 
@@ -31,7 +31,7 @@ function OnGUI()
 {
 	var hitPoint3D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-	GUI.Label(new Rect(0.0,0.0,100.0,40.0),"Cursor: " + hitPoint3D.x + "," + hitPoint3D.y);
+	//GUI.Label(new Rect(0.0,0.0,100.0,40.0),"Cursor: " + hitPoint3D.x + "," + hitPoint3D.y);
     
     if(showGUITarget)
     {
