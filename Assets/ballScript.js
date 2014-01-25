@@ -1,5 +1,7 @@
 ﻿#pragma strict
 
+@script ExecuteInEditMode
+
 var shootingForce : Vector2 = new Vector2();
 var showGUITarget = false;
 var flying = true;

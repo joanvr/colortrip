@@ -1,15 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Wall.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\ballScript.js">
     <Files>
-<<<<<<< HEAD
       <File FileName="Assets\Scripts\Wall.js" Line="3" Column="26" />
-      <File FileName="Assets\Scripts\Globals.js" Line="4" Column="1" />
-=======
-      <File FileName="Assets\ballScript.js" Line="11" Column="34" />
-      <File FileName="Assets\Scripts\Globals.js" Line="8" Column="1" />
       <File FileName="Assets\wallScript.js" Line="1" Column="1" />
->>>>>>> 92a2baef8061dc9e3231a6762a1a09ff53a39ad5
+      <File FileName="Assets\ballSelector.js" Line="38" Column="16" />
+      <File FileName="Assets\ballScript.js" Line="147" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

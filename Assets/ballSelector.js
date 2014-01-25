@@ -29,8 +29,14 @@ function Update() {
 	}
 	
 	for (var i = 0; i < 3; i++) {
-		if (ballsSelected[i]) 	ballsTexture[i].color.a = 1.0f;
-		else					ballsTexture[i].color.a = 0.0f;
+		if (ballsSelected[i]) 	{
+			ballsTexture[i].color.a = 1.0f;
+			Camera.main.cullingMask |= 1<<(i+8);
+		}
+		else {
+			ballsTexture[i].color.a = 0.0f;
+			Camera.main.cullingMask &= ~(1<<(i+8));
+		}
 	}
 }
 
