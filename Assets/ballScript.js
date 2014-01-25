@@ -2,7 +2,7 @@
 
 var shootingForce : Vector2 = new Vector2();
 var showGUITarget = false;
-var flying = true; //porque empieza en el aire
+var flying = true;
 
 var texTarget : Texture;
 
@@ -11,7 +11,9 @@ private var slingshotRelease : Vector2 = new Vector2();
 private var slingshotBaseMousePos : Vector2 = Vector2.zero;
 private var slingshotDragMousePos : Vector2 = Vector2.zero;
 
-var shootFactor = 30.0;
+var shootPower = 30.0;
+
+private var beingShooted = false;
 
 function Start () {
 
@@ -23,11 +25,12 @@ function Update () {
 
 	this.selectSprite();
 	
+	/*
 	if(Input.GetKeyDown("space") && flying == false)
 	{
-		this.rigidbody2D.gravityScale = 0.0;			
-		this.rigidbody2D.AddForce(shootingForce);	
-	}	
+		//this.rigidbody2D.gravityScale = 0.0;			
+		//this.rigidbody2D.AddForce(shootingForce);	
+	}*/	
 }
 
 function OnGUI()
@@ -44,6 +47,13 @@ function OnGUI()
 }
 
 function OnCollisionEnter2D(collision : Collision2D) {
+	this.rigidbody2D.gravityScale = 0.0;	
+	this.rigidbody2D.angularVelocity = 0.0;
+	this.rigidbody2D.velocity = Vector3.zero;
+	flying = false;
+}
+
+function OnCollision2D(collision : Collision2D) {
 	this.rigidbody2D.gravityScale = 0.0;	
 	this.rigidbody2D.angularVelocity = 0.0;
 	this.rigidbody2D.velocity = Vector3.zero;
@@ -70,28 +80,15 @@ function OnMouseDown () {
 }
 
 function OnMouseDrag () {
-//	var hit : RaycastHit;
-//    if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), hit))
-//    {
-//        slingshotBase.x = hit.point.x;
-//        slingshotBase.y = hit.point.y;
-//    }
-//	slingshotBaseMousePos.x = Input.mousePosition.x;
-//	slingshotBaseMousePos.y = Input.mousePosition.y;
     slingshotDragMousePos.x = Input.mousePosition.x;
     slingshotDragMousePos.y = Input.mousePosition.y;
 }
 
 
 function OnMouseUp(){
-	showGUITarget = false;
-	var hitPoint3D : Vector3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-	slingshotRelease.x = hitPoint3D.x;
-	slingshotRelease.y = hitPoint3D.y;
+	var hitPoint : Vector3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			
-	shootingForce = (slingshotBase - slingshotRelease) * shootFactor;
-	this.rigidbody2D.gravityScale = 1.0;			
+	shootingForce = (this.transform.localPosition - hitPoint) * shootPower;		
 	this.rigidbody2D.AddForce(shootingForce);	
 }
 
@@ -110,26 +107,13 @@ function selectSprite () {
 
 	var SR = GetComponent(SpriteRenderer);
 
-	if (type == colorType.cmy) 
-		SR.sprite = cmy_spr;
-		
-	if (type == colorType.cy) 
-		SR.sprite = cyyel_spr;
-	
-	if (type == colorType.cm) 
-		SR.sprite = cymag_spr;
-		
-	if (type == colorType.my) 
-		SR.sprite = magyel_spr;
-		
-	if (type == colorType.c) 
-		SR.sprite = cy_spr;
-		
-	if (type == colorType.m) 
-		SR.sprite = mag_spr;
-	
-	if (type == colorType.y) 
-		SR.sprite = yel_spr;
+	if (type == colorType.cmy) SR.sprite = cmy_spr;
+	if (type == colorType.cy) SR.sprite = cyyel_spr;
+	if (type == colorType.cm) SR.sprite = cymag_spr;
+	if (type == colorType.my) SR.sprite = magyel_spr;
+	if (type == colorType.c) SR.sprite = cy_spr;
+	if (type == colorType.m) SR.sprite = mag_spr;
+	if (type == colorType.y) SR.sprite = yel_spr;
 
 }
 
