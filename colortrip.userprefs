@@ -1,12 +1,21 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\playerScript.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\ScrollingBackground.js">
     <Files>
-      <File FileName="Assets\playerScript.js" Line="3" Column="1" />
+      <File FileName="Assets\playerScript.js" Line="11" Column="2" />
+      <File FileName="Assets\Scripts\Slingshot.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Globals.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Menu.js" Line="159" Column="157" />
+      <File FileName="Assets\Scripts\FitToScreen.js" Line="2" Column="1" />
+      <File FileName="Assets\ScrollingBackground.js" Line="43" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\Leon\Documents\GitHub\colortrip\Assets\Scripts\Main.js" line="12" />
+      <Breakpoint file="C:\Users\Leon\Documents\GitHub\colortrip\Assets\ScrollingBackground.js" line="25" />
+      <Breakpoint file="C:\Users\Leon\Documents\GitHub\colortrip\Assets\ScrollingBackground.js" line="21" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
