@@ -59,7 +59,7 @@ function OnCollisionEnter2D(collision : Collision2D) {
 			for (var i = 0; i < t2.length; i++) {
 				type[i] = type[i] || t2[i];
 				if (type[i])
-					GameObject.Find("ballSelector").GetComponent(ballSelector).click(i);
+					GameObject.Find("ballSelector").GetComponent(ballSelector).select(i);
 			}
 			Destroy(collision.gameObject);
 		}
@@ -85,11 +85,7 @@ function OnCollisionExit2D(collision : Collision2D) {
 }
 
 function OnMouseDown () {
-<<<<<<< HEAD
-
-=======
 	if (!activate) return;
->>>>>>> f8de8be3d2f84561a648236ed91c220e1be06dc5
 	slingshotBase = this.transform.position;
 	showGUITarget = true;
 
@@ -173,9 +169,6 @@ public function getActiveColors() {
 
 function updatePhysics() {
 	for (var i = 0; i < 3; i++) {
-		var origin = gameObject.layer;
-		var dest = i+8;
-		var col = !type[i];
-		Physics2D.IgnoreLayerCollision(dest, origin, col);
+		Physics2D.IgnoreLayerCollision(gameObject.layer, i+8, !type[i]);
 	}
 }

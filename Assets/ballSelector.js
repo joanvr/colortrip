@@ -8,6 +8,15 @@ var ballsSelected : boolean[];
 var ballsObjects : GameObject[];
 
 function Start() {
+	ballsObjects = GameObject.FindGameObjectsWithTag("Ball");
+	var b0 = ballsObjects[0].GetComponent(ballScript).getActiveColors();
+	for (var i = 0; i < b0.length; i++) {
+		if (b0[i]) {
+			click(i);
+			break;	
+		}
+	}
+	
 }
 
 function Update() {
@@ -51,7 +60,7 @@ function Update() {
 
 }
 
-public function click(ball : int) {
+function click(ball : int) {
 	var i : int;
 	var j : int;
 	if (ballsSelected[ball]) {
@@ -77,4 +86,8 @@ public function click(ball : int) {
 			
 		}
 	}
+}
+
+public function select(ball : int) {
+	ballsSelected[ball] = true;
 }
