@@ -7,7 +7,12 @@ var ballsSelected : boolean[];
 
 var ballsObjects : GameObject[];
 
+function Start() {
+}
+
 function Update() {
+	var i : int;
+	
 	if (Input.GetMouseButtonDown(0)) {
 		if (background.HitTest(Input.mousePosition)) {
 			var v : Vector2 = Input.mousePosition;
@@ -28,7 +33,12 @@ function Update() {
 		}
 	}
 	
-	for (var i = 0; i < 3; i++) {
+	ballsObjects = GameObject.FindGameObjectsWithTag("Ball");
+	for (i = 0; i < ballsObjects.length; i++) {
+		ballsObjects[i].gameObject.layer = i+12;
+	}
+
+	for (i = 0; i < 3; i++) {
 		if (ballsSelected[i]) 	{
 			ballsTexture[i].color.a = 1.0f;
 			Camera.main.cullingMask |= 1<<(i+8);
@@ -38,6 +48,7 @@ function Update() {
 			Camera.main.cullingMask &= ~(1<<(i+8));
 		}
 	}
+
 }
 
 function click(ball : int) {
