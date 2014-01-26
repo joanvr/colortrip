@@ -2,7 +2,17 @@ fileFormatVersion: 2
 guid: ec8a326d71d79804aae4a6b0733fe173
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - tfmFondo1: {instanceID: 0}
+  - texFondo1: {fileID: 2800000, guid: 43582e609511d6f4084849e5b76ec0b9, type: 3}
+  - texFondo2: {fileID: 2800000, guid: 429ff8062d9ab2542aab4e261b222173, type: 3}
+  - texFondo3: {fileID: 2800000, guid: 75ee53cafd93b644abc6138328681907, type: 3}
+  - texFondo4: {fileID: 2800000, guid: 18744ed7b92db6444896ffd86d5cf03d, type: 3}
+  - texFondo5: {fileID: 2800000, guid: 145a72263f35bb14db514c275db74f26, type: 3}
+  - texFondo6: {fileID: 2800000, guid: b24d56100c1c6dd46bfb188b8f5760fc, type: 3}
+  - texFondo7: {fileID: 2800000, guid: af71c93dd49234249a0df6f381238631, type: 3}
+  - texFondo8: {fileID: 2800000, guid: 1fbc9cd918e470f4783da6b9d5d836f0, type: 3}
+  - texFondo9: {fileID: 2800000, guid: c174ad761ca70ef4b918ee7f10d99b82, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

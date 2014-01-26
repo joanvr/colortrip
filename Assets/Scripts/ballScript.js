@@ -5,6 +5,7 @@
 var shootingForce : Vector2 = new Vector2();
 var showGUITarget = false;
 var flying = false;
+var virgin = true;
 
 var texTarget : Texture;
 
@@ -14,9 +15,6 @@ public static var aiming = false;
 
 
 //Haciendo estas variables public static para poder dibujar la linea de disparo
-//private var slingshotBase : Vector2 = new Vector2();
-//private var slingshotRelease : Vector2 = new Vector2();
-//private var slingshotBaseMousePos : Vector2 = Vector2.zero;
 public static var slingshotBase : Vector2 = new Vector2();
 public static var slingshotRelease : Vector2 = new Vector2();
 public static var slingshotBaseMousePos : Vector2 = Vector2.zero;
@@ -38,27 +36,19 @@ function Start () {
 function Update () {
 
 	updateSprite();
-	
 	updatePhysics();
-	/*
-	if(Input.GetKeyDown("space") && flying == false)
-	{
-		//this.rigidbody2D.gravityScale = 0.0;			
-		//this.rigidbody2D.AddForce(shootingForce);	
-	}*/	
+
 }
 
 function OnGUI()
 {
-
 	var hitPoint3D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 	//GUI.Label(new Rect(0.0,0.0,100.0,40.0),"Cursor: " + hitPoint3D.x + "," + hitPoint3D.y);
-    
+
     var guiCoords : Vector3 = Camera.main.WorldToScreenPoint(slingshotRelease);
     
-    if(showGUITarget)
-    {
+    if(showGUITarget) {
 		//GUI.DrawTexture(new Rect(slingshotDragMousePos.x, Screen.height - slingshotDragMousePos.y, 10.0,10.0),texTarget);    	
 		GUI.DrawTexture(new Rect(guiCoords.x - 5, Screen.height - guiCoords.y - 5, 10.0,10.0),texTarget);    	
     }
@@ -67,6 +57,7 @@ function OnGUI()
 
 function OnCollisionEnter2D(collision : Collision2D) {
 	if (collision.gameObject.tag == "Ball") {
+		if (virgin && collision.gameObject.GetComponent(ballScript).virgin) return;
 		if (this.flying) { 
 			var t2 : boolean[] = collision.gameObject.GetComponent(ballScript).getActiveColors();
 			
@@ -82,24 +73,46 @@ function OnCollisionEnter2D(collision : Collision2D) {
 		this.rigidbody2D.gravityScale = 0.0;	
 		this.rigidbody2D.angularVelocity = 0.0;
 		this.rigidbody2D.velocity = Vector3.zero;
+		flying = false;
 	}
-	flying = false;
 }
 
 function OnCollision2D(collision : Collision2D) {
-	this.rigidbody2D.gravityScale = 0.0;	
-	this.rigidbody2D.angularVelocity = 0.0;
-	this.rigidbody2D.velocity = Vector3.zero;
-	flying = false;
+	if (collision.gameObject.tag == "Ball") {
+		if (virgin && collision.gameObject.GetComponent(ballScript).virgin) return;
+		if (this.flying) { 
+			var t2 : boolean[] = collision.gameObject.GetComponent(ballScript).getActiveColors();
+			
+			for (var i = 0; i < t2.length; i++) {
+				type[i] = type[i] || t2[i];
+				if (type[i])
+					GameObject.Find("ballSelector").GetComponent(ballSelector).select(i);
+			}
+			Destroy(collision.gameObject);
+		}
+	}
+	else {
+		this.rigidbody2D.gravityScale = 0.0;	
+		this.rigidbody2D.angularVelocity = 0.0;
+		this.rigidbody2D.velocity = Vector3.zero;
+		flying = false;
+	}
 }
 
 function OnCollisionExit2D(collision : Collision2D) {
-	this.rigidbody2D.gravityScale = 1.0;	
-	flying = true;
+	if (collision.gameObject.tag == "Ball") {
+		virgin = false;
+		this.rigidbody2D.gravityScale = 1.0;
+	}
+	else {
+		this.rigidbody2D.gravityScale = 1.0;	
+		flying = true;	
+	}
 }
 
 function OnMouseDown () {
 	if (!activate) return;
+	
 	slingshotBase = this.transform.position;
 	showGUITarget = true;
 
@@ -113,9 +126,11 @@ function OnMouseDown () {
 
 }
 
-function OnMouseDrag () {
+function OnMouseDrag () {	
     if (!activate) return;
+    
 	aiming = true;
+
     slingshotDragMousePos.x = Input.mousePosition.x;
     slingshotDragMousePos.y = Input.mousePosition.y;
     
@@ -133,6 +148,7 @@ function OnMouseDrag () {
 
 function OnMouseUp(){
 	if (!activate) return;
+
 	aiming = false;
 	var i : int;
 	var hitPoint : Vector3 = slingshotRelease;//Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -149,14 +165,28 @@ function OnMouseUp(){
 		if (!bs.ballsSelected[i] && type[i])
 			nb[i] = true;
 	
-	if (nb[0] || nb[1] || nb[2]) {
+	if ( anySelected(nb) ) {
 		var nbo = Instantiate(this, transform.localPosition, transform.localRotation);
-		nbo.GetComponent(ballScript).type = nb;
+		var nbs = nbo.GetComponent(ballScript);
+		nbs.type = nb;
+		nbs.virgin = true;
+		virgin = true;
 		
 		for (i = 0; i < nb.length; i++)
 			if (nb[i]) type[i] = false; 
 	}
 	
+}
+
+function anySelected(nb : boolean[]) {
+	return nb[0] || nb[1] || nb[2];
+}
+
+function justOneSelected(nb : boolean[]) {
+	return 
+		( nb[0] && !nb[1] && !nb[2]) ||
+	 	(!nb[0] &&  nb[1] && !nb[2]) ||
+	 	(!nb[0] && !nb[1] &&  nb[2]);
 }
 
 var type : boolean[];
@@ -168,7 +198,6 @@ var spr_02 : Sprite;
 var spr_0 : Sprite;
 var spr_1 : Sprite;
 var spr_2 : Sprite;
-
 
 function updateSprite () {
 	var SR = GetComponent(SpriteRenderer);

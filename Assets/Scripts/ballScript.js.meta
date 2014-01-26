@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 4b56105268d0f9c4bbe729316a4b44ec
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - texTarget: {fileID: 2800000, guid: 1fdddef62af96b84e9458714b5373248, type: 3}
+  - spr_012: {fileID: 21300000, guid: 39c7449b164c4844dabbfd330768262f, type: 3}
+  - spr_01: {fileID: 21300000, guid: fc3ef88940fb02e48a6e161c0fb2f570, type: 3}
+  - spr_12: {fileID: 21300000, guid: 393bb3c357ca7d94dbf625dffd932f01, type: 3}
+  - spr_02: {fileID: 21300000, guid: 1bb6d56946683654891834550ae78549, type: 3}
+  - spr_0: {fileID: 21300000, guid: 5335dd7e12c608b41ba0bbc330a55c65, type: 3}
+  - spr_1: {fileID: 21300000, guid: 32ca6776a538d9d46a8270c9382a8a89, type: 3}
+  - spr_2: {fileID: 21300000, guid: 60cb9ab8a56b69b4fb0cbd50eba02bda, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
