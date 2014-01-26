@@ -1,11 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ballSelector.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GoalScript.js">
     <Files>
-      <File FileName="Assets\Scripts\ballSelector.js" Line="77" Column="52" />
-      <File FileName="Assets\Scripts\ballSelector.js" Line="79" Column="15" />
-      <File FileName="Assets\aimLine.js" Line="52" Column="2" />
-      <File FileName="Assets\Scripts\ballScript.js" Line="84" Column="69" />
+      <File FileName="Assets\GoalScript.js" Line="5" Column="1" />
+      <File FileName="Assets\Scripts\ballScript.js" Line="59" Column="43" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
