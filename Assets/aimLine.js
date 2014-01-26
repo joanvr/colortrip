@@ -41,7 +41,7 @@ function OnPostRender() {
 	lineMaterial.SetPass( 0 );
 
 	GL.Begin( GL.LINES );
-	GL.Color( Color(0.8,0.8,0.81,1.0) );
+	GL.Color( Color(0.2,0.2,0.21,1.0) );
 	GL.Vertex3( slingshotBase.x, slingshotBase.y, -2.5 );
 	GL.Color( Color(0.4,0.4,0.41,0.5) );
 	GL.Vertex3( slingshotRelease.x, slingshotRelease.y, -2.5 );

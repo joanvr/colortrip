@@ -55,6 +55,16 @@ function OnGUI()
 
 	//GUI.Label(new Rect(0.0,0.0,100.0,40.0),"Cursor: " + hitPoint3D.x + "," + hitPoint3D.y);
     
+<<<<<<< HEAD
+=======
+    var guiCoords : Vector3 = Camera.main.WorldToScreenPoint(slingshotRelease);
+    
+    if(showGUITarget)
+    {
+		//GUI.DrawTexture(new Rect(slingshotDragMousePos.x, Screen.height - slingshotDragMousePos.y, 10.0,10.0),texTarget);    	
+		GUI.DrawTexture(new Rect(guiCoords.x - 5, Screen.height - guiCoords.y - 5, 10.0,10.0),texTarget);    	
+    }
+>>>>>>> 78388ad7a799f72ceafd1bb2d376f40e9fc444f4
 	
 }
 
@@ -121,20 +131,33 @@ function OnMouseDown () {
 }
 
 function OnMouseDrag () {
+<<<<<<< HEAD
 	if (!activate) return;
 	
 	aiming = true;
 
+=======
+    if (!activate) return;
+	aiming = true;
+>>>>>>> 78388ad7a799f72ceafd1bb2d376f40e9fc444f4
     slingshotDragMousePos.x = Input.mousePosition.x;
     slingshotDragMousePos.y = Input.mousePosition.y;
     
     var hitPoint : Vector3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     slingshotRelease = hitPoint;
+    
+    if((slingshotRelease - slingshotBase).magnitude > maxShotMagnitude)
+    {
+    	var tempVec : Vector2 = slingshotRelease - slingshotBase;
+    	tempVec.Normalize();
+    	slingshotRelease = slingshotBase + tempVec * maxShotMagnitude;
+    }
 }
 
 
 function OnMouseUp(){
 	if (!activate) return;
+<<<<<<< HEAD
 
 	aiming = false;
 
@@ -142,9 +165,15 @@ function OnMouseUp(){
 	var i : int;
 
 	var hitPoint : Vector3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+=======
+	aiming = false;
+	var i : int;
+	var hitPoint : Vector3 = slingshotRelease;//Camera.main.ScreenToWorldPoint(Input.mousePosition);
+>>>>>>> 78388ad7a799f72ceafd1bb2d376f40e9fc444f4
 	
 	shootingForce = (this.transform.localPosition - hitPoint) * shootPower;		
 	this.rigidbody2D.AddForce(shootingForce);
+	showGUITarget = false;
 
 	var bs = GameObject.Find("ballSelector").GetComponent(ballSelector);
 	
@@ -204,4 +233,7 @@ function updatePhysics() {
 		Physics2D.IgnoreLayerCollision(gameObject.layer, i+8, !type[i]);
 	}
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 78388ad7a799f72ceafd1bb2d376f40e9fc444f4
