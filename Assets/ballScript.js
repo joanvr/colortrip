@@ -55,13 +55,12 @@ function OnGUI()
 
 	//GUI.Label(new Rect(0.0,0.0,100.0,40.0),"Cursor: " + hitPoint3D.x + "," + hitPoint3D.y);
     
+    var guiCoords : Vector3 = Camera.main.WorldToScreenPoint(slingshotRelease);
+    
     if(showGUITarget)
     {
-<<<<<<< HEAD
 		//GUI.DrawTexture(new Rect(slingshotDragMousePos.x, Screen.height - slingshotDragMousePos.y, 10.0,10.0),texTarget);    	
-=======
-//		GUI.DrawTexture(new Rect(slingshotDragMousePos.x, Screen.height - slingshotDragMousePos.y, 10.0,10.0),texTarget);    	
->>>>>>> 451447344a6b663ba7e018db2b0928442db1d0b0
+		GUI.DrawTexture(new Rect(guiCoords.x - 5, Screen.height - guiCoords.y - 5, 10.0,10.0),texTarget);    	
     }
 	
 }
@@ -115,30 +114,32 @@ function OnMouseDown () {
 }
 
 function OnMouseDrag () {
-<<<<<<< HEAD
-	aiming = true;
-=======
     if (!activate) return;
->>>>>>> 451447344a6b663ba7e018db2b0928442db1d0b0
+	aiming = true;
     slingshotDragMousePos.x = Input.mousePosition.x;
     slingshotDragMousePos.y = Input.mousePosition.y;
     
     var hitPoint : Vector3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     slingshotRelease = hitPoint;
+    
+    if((slingshotRelease - slingshotBase).magnitude > maxShotMagnitude)
+    {
+    	var tempVec : Vector2 = slingshotRelease - slingshotBase;
+    	tempVec.Normalize();
+    	slingshotRelease = slingshotBase + tempVec * maxShotMagnitude;
+    }
 }
 
 
 function OnMouseUp(){
-<<<<<<< HEAD
-	aiming = false;
-=======
 	if (!activate) return;
+	aiming = false;
 	var i : int;
->>>>>>> 451447344a6b663ba7e018db2b0928442db1d0b0
-	var hitPoint : Vector3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+	var hitPoint : Vector3 = slingshotRelease;//Camera.main.ScreenToWorldPoint(Input.mousePosition);
 	
 	shootingForce = (this.transform.localPosition - hitPoint) * shootPower;		
 	this.rigidbody2D.AddForce(shootingForce);
+	showGUITarget = false;
 
 	var bs = GameObject.Find("ballSelector").GetComponent(ballSelector);
 	
@@ -190,34 +191,6 @@ function updateSprite () {
 
 
 public function getActiveColors() {
-<<<<<<< HEAD
-	
-	var cols = new Array(3);
-	
-	cols[0] = 
-		type == colorType.cmy ||
-		type == colorType.cy ||
-		type == colorType.cm ||
-		type == colorType.c;
-	
-	cols[1] = 
-		type == colorType.cmy ||
-		type == colorType.my ||
-		type == colorType.cm ||
-		type == colorType.m;
-		
-	cols[2] = 
-		type == colorType.cmy ||
-		type == colorType.cy ||
-		type == colorType.my ||
-		type == colorType.y;
-		
-	return cols;
-	
-}
-
-
-=======
 	return type;
 }
 
@@ -226,4 +199,3 @@ function updatePhysics() {
 		Physics2D.IgnoreLayerCollision(gameObject.layer, i+8, !type[i]);
 	}
 }
->>>>>>> 451447344a6b663ba7e018db2b0928442db1d0b0
