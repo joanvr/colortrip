@@ -39,12 +39,6 @@ function EspaunearFondo() { // :P
 	var fondos = new Array();
 	//fondos.Add(sprFondo1,sprFondo2);
 
-<<<<<<< HEAD
-	//	var instance : Transform = Instantiate(tfmFondo1);
-=======
-//		var instance : Transform = Instantiate(tfmFondo1);
->>>>>>> 451447344a6b663ba7e018db2b0928442db1d0b0
-
 	//var instance : Transform = Instantiate(tfmFondo1,Vector2.zero,Quaternion.identity);
 	var instance : Transform = Instantiate(tfmFondo1);
 	instance.rigidbody2D.velocity = new Vector2(0.0,100.0);

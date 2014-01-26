@@ -55,14 +55,6 @@ function OnGUI()
 
 	//GUI.Label(new Rect(0.0,0.0,100.0,40.0),"Cursor: " + hitPoint3D.x + "," + hitPoint3D.y);
     
-    if(showGUITarget)
-    {
-<<<<<<< HEAD
-		//GUI.DrawTexture(new Rect(slingshotDragMousePos.x, Screen.height - slingshotDragMousePos.y, 10.0,10.0),texTarget);    	
-=======
-//		GUI.DrawTexture(new Rect(slingshotDragMousePos.x, Screen.height - slingshotDragMousePos.y, 10.0,10.0),texTarget);    	
->>>>>>> 451447344a6b663ba7e018db2b0928442db1d0b0
-    }
 	
 }
 
@@ -88,9 +80,23 @@ function OnCollisionEnter2D(collision : Collision2D) {
 }
 
 function OnCollision2D(collision : Collision2D) {
-	this.rigidbody2D.gravityScale = 0.0;	
-	this.rigidbody2D.angularVelocity = 0.0;
-	this.rigidbody2D.velocity = Vector3.zero;
+	if (collision.gameObject.tag == "Ball") {
+		if (this.flying) { 
+			var t2 : boolean[] = collision.gameObject.GetComponent(ballScript).getActiveColors();
+			
+			for (var i = 0; i < t2.length; i++) {
+				type[i] = type[i] || t2[i];
+				if (type[i])
+					GameObject.Find("ballSelector").GetComponent(ballSelector).select(i);
+			}
+			Destroy(collision.gameObject);
+		}
+	}
+	else {
+		this.rigidbody2D.gravityScale = 0.0;	
+		this.rigidbody2D.angularVelocity = 0.0;
+		this.rigidbody2D.velocity = Vector3.zero;
+	}
 	flying = false;
 }
 
@@ -115,11 +121,10 @@ function OnMouseDown () {
 }
 
 function OnMouseDrag () {
-<<<<<<< HEAD
+	if (!activate) return;
+	
 	aiming = true;
-=======
-    if (!activate) return;
->>>>>>> 451447344a6b663ba7e018db2b0928442db1d0b0
+
     slingshotDragMousePos.x = Input.mousePosition.x;
     slingshotDragMousePos.y = Input.mousePosition.y;
     
@@ -129,12 +134,13 @@ function OnMouseDrag () {
 
 
 function OnMouseUp(){
-<<<<<<< HEAD
-	aiming = false;
-=======
 	if (!activate) return;
+
+	aiming = false;
+
+	
 	var i : int;
->>>>>>> 451447344a6b663ba7e018db2b0928442db1d0b0
+
 	var hitPoint : Vector3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 	
 	shootingForce = (this.transform.localPosition - hitPoint) * shootPower;		
@@ -190,34 +196,6 @@ function updateSprite () {
 
 
 public function getActiveColors() {
-<<<<<<< HEAD
-	
-	var cols = new Array(3);
-	
-	cols[0] = 
-		type == colorType.cmy ||
-		type == colorType.cy ||
-		type == colorType.cm ||
-		type == colorType.c;
-	
-	cols[1] = 
-		type == colorType.cmy ||
-		type == colorType.my ||
-		type == colorType.cm ||
-		type == colorType.m;
-		
-	cols[2] = 
-		type == colorType.cmy ||
-		type == colorType.cy ||
-		type == colorType.my ||
-		type == colorType.y;
-		
-	return cols;
-	
-}
-
-
-=======
 	return type;
 }
 
@@ -226,4 +204,4 @@ function updatePhysics() {
 		Physics2D.IgnoreLayerCollision(gameObject.layer, i+8, !type[i]);
 	}
 }
->>>>>>> 451447344a6b663ba7e018db2b0928442db1d0b0
+
