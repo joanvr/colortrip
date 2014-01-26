@@ -27,6 +27,12 @@ private var beingShooted = false;
 
 var activate : boolean;
 
+
+var sfxBall1 : AudioClip;
+var sfxBall2 : AudioClip;
+var sfxBall3 : AudioClip;
+var sfxBall4 : AudioClip;
+
 function Start () {
 
 	shootingForce.x = 30.0;
@@ -57,6 +63,8 @@ function OnGUI()
 
 function OnCollisionEnter2D(collision : Collision2D) {
 	if (collision.gameObject.tag == "Ball") {
+		audio.PlayOneShot(sfxBall4);
+			
 		if (virgin && collision.gameObject.GetComponent(ballScript).virgin) return;
 		if (this.flying) { 
 			var t2 : boolean[] = collision.gameObject.GetComponent(ballScript).getActiveColors();
@@ -70,6 +78,14 @@ function OnCollisionEnter2D(collision : Collision2D) {
 		}
 	}
 	else {
+		//play bounce sound
+		if(type[0])
+			audio.PlayOneShot(sfxBall1);
+		else if(type[1])
+			audio.PlayOneShot(sfxBall2);
+		else if(type[2])
+			audio.PlayOneShot(sfxBall3);
+
 		this.rigidbody2D.gravityScale = 0.0;	
 		this.rigidbody2D.angularVelocity = 0.0;
 		this.rigidbody2D.velocity = Vector3.zero;
