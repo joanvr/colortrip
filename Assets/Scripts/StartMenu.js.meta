@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a4decd26e9c36244cacd27c7f7b9a42e
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - skinMenuButton: {fileID: 11400000, guid: 5bc460db3e934a5418230cd68c692a21, type: 2}
+  - texGameTitle: {fileID: 2800000, guid: 234a84ff3a5cf384cb08c4d92192ff78, type: 3}
+  - texPlayButton: {fileID: 2800000, guid: ef045d7f180192741a7953553292a0f1, type: 3}
+  - texRestartButton: {fileID: 2800000, guid: 8dc46ada826538e408a9ac6caa90c091, type: 3}
+  - texExitButton: {fileID: 2800000, guid: f5230b61d373af244b88ced61d265f1f, type: 3}
+  - texPauseButton: {fileID: 2800000, guid: 974ed8d12a88a854db64bd2d1e4562c8, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

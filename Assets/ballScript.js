@@ -8,9 +8,19 @@ var flying = true;
 
 var texTarget : Texture;
 
-private var slingshotBase : Vector2 = new Vector2();
-private var slingshotRelease : Vector2 = new Vector2();
-private var slingshotBaseMousePos : Vector2 = Vector2.zero;
+var maxShotMagnitude : float;
+
+public static var aiming = false;
+
+
+//Haciendo estas variables public static para poder dibujar la linea de disparo
+//private var slingshotBase : Vector2 = new Vector2();
+//private var slingshotRelease : Vector2 = new Vector2();
+//private var slingshotBaseMousePos : Vector2 = Vector2.zero;
+public static var slingshotBase : Vector2 = new Vector2();
+public static var slingshotRelease : Vector2 = new Vector2();
+public static var slingshotBaseMousePos : Vector2 = Vector2.zero;
+
 private var slingshotDragMousePos : Vector2 = Vector2.zero;
 
 var shootPower = 30.0;
@@ -37,13 +47,14 @@ function Update () {
 
 function OnGUI()
 {
+
 	var hitPoint3D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 	//GUI.Label(new Rect(0.0,0.0,100.0,40.0),"Cursor: " + hitPoint3D.x + "," + hitPoint3D.y);
     
     if(showGUITarget)
     {
-		GUI.DrawTexture(new Rect(slingshotDragMousePos.x, Screen.height - slingshotDragMousePos.y, 10.0,10.0),texTarget);    	
+		//GUI.DrawTexture(new Rect(slingshotDragMousePos.x, Screen.height - slingshotDragMousePos.y, 10.0,10.0),texTarget);    	
     }
 	
 }
@@ -82,12 +93,17 @@ function OnMouseDown () {
 }
 
 function OnMouseDrag () {
+	aiming = true;
     slingshotDragMousePos.x = Input.mousePosition.x;
     slingshotDragMousePos.y = Input.mousePosition.y;
+    
+    var hitPoint : Vector3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    slingshotRelease = hitPoint;
 }
 
 
 function OnMouseUp(){
+	aiming = false;
 	var hitPoint : Vector3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			
 	shootingForce = (this.transform.localPosition - hitPoint) * shootPower;		
@@ -145,3 +161,5 @@ public function getActiveColors() {
 	return cols;
 	
 }
+
+
